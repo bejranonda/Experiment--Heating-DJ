@@ -70,10 +70,87 @@ Heating DJ/
 │   └── interpolation_demo.py          # Standalone interpolation test
 │
 ├── KeyboardPress/                      # DJ control library
-├── MixxAutoDj/                        # Automated DJ system
+│   └── README.md                      # Keyboard automation for Mixxx
+│
+├── MixxAutoDj/                        # Advanced DJ automation system
+│   ├── README.md                      # File-based IPC control
+│   ├── djmix_test.py                  # Complex DJ routines
+│   └── mixxx_controller_src/          # C++ controller sources
+│
 ├── serial/                            # Serial communication utilities
-└── README.md
+│   ├── README.md                      # Hardware I/O layer
+│   ├── read_serial.py                 # Read thermal data
+│   └── write_serial.py                # Write LED feedback
+│
+├── README.md                          # This file
+├── CREDITS.md                         # Attribution & sources
+└── LICENSE                            # GPL-3.0
 ```
+
+## System Architecture
+
+The Heating DJ project is built with a modular architecture:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    HEATING DJ SYSTEM                         │
+└─────────────────────────────────────────────────────────────┘
+
+    ┌───────────────┐
+    │ MLX90640      │  ← Thermal Camera (8x8 IR array)
+    │ Thermal Camera│
+    └───────┬───────┘
+            │ USB Serial (57600 baud)
+            ▼
+    ┌───────────────┐
+    │ serial/       │  ← I/O Layer: read_serial.py
+    │ (Input Layer) │     Reads 64 temp values
+    └───────┬───────┘
+            │
+            ▼
+    ┌───────────────────────────────────┐
+    │ thermal_dj/                       │  ← Application Layer
+    │ • event_based_dj.py (PRIMARY)     │     Event detection
+    │ • main.py (Full system)           │     Statistical analysis
+    │ • visualize_only.py (Test)        │     Visualization
+    └───────┬───────────────────────────┘
+            │
+            ▼
+    ┌───────────────────────────────────┐
+    │ KeyboardPress/ or MixxAutoDj/     │  ← Control Layer
+    │ • Simple hotkeys (real-time)      │     DJ automation
+    │ • Complex routines (advanced)     │     Effect control
+    └───────┬───────────────────────────┘
+            │
+            ▼
+    ┌───────────────┐
+    │ Mixxx DJ      │  ← DJ Software
+    │ Software      │     Music playback
+    └───────────────┘
+
+            │
+            ▼
+    ┌───────────────┐
+    │ serial/       │  ← I/O Layer: write_serial.py
+    │ (Output Layer)│     LED feedback
+    └───────┬───────┘
+            │
+            ▼
+    ┌───────────────┐
+    │ LED Matrix    │  ← Visual Feedback
+    │ Display       │     Temperature display
+    └───────────────┘
+```
+
+### Component Roles:
+
+- **[serial/](serial/)** - Hardware interface layer (thermal camera input, LED display output)
+- **[thermal_dj/](thermal_dj/)** - Core application (event detection, visualization, orchestration)
+- **[KeyboardPress/](KeyboardPress/)** - Simple DJ control (real-time thermal responses)
+- **[MixxAutoDj/](MixxAutoDj/)** - Advanced DJ control (complex routines, precise timing)
+- **[examples/](examples/)** - Learning resources (visualization techniques)
+
+Each component has its own README with detailed documentation.
 
 ## Quick Start
 
@@ -607,13 +684,27 @@ requests.post('http://your-server/api/log', json=data)
 - [ ] Integration with lighting systems
 - [ ] Recording and playback of thermal "performances"
 
-## Credits
+## Credits and Attribution
 
-- MLX90640 thermal camera by Melexis
-- Matplotlib for visualization
-- Scipy for interpolation
-- Integration with Mixxx DJ software
+This project builds upon the excellent work of the open-source thermal camera community.
+
+### Inspired By:
+- **[Maker Portal's raspi-thermal-cam](https://github.com/makerportal/raspi-thermal-cam)** (GPL-3.0) - Thermal camera visualization with cubic interpolation
+- **[Adafruit MLX90640 Learning Guide](https://learn.adafruit.com/adafruit-mlx90640-ir-thermal-camera)** (MIT) - Sensor interfacing patterns
+
+### Hardware & Software:
+- **MLX90640 Thermal Sensor** by Melexis
+- **Mixxx DJ Software** (GPL-2.0+)
+- **NumPy, Matplotlib, SciPy** - Data processing and visualization
+- **PyAutoGUI, PySerial** - Hardware control and communication
+
+### Original Contributions:
+The event detection system, DJ automation integration, movement detection algorithm, and temperature-to-music mapping are original work developed for this project.
+
+For detailed attribution, see [CREDITS.md](CREDITS.md).
 
 ## License
 
-Open source - create your own thermal interactive experiences!
+**GPL-3.0** - This project is licensed under the GNU General Public License v3.0, ensuring it remains open source and freely available to the community.
+
+See [LICENSE](LICENSE) for details.

@@ -1,34 +1,44 @@
-# Mixxx Auto DJ - Automated DJ Control System
+# MixxAutoDj - Advanced DJ Automation System
 
-An automated DJ system that controls [Mixxx DJ software](https://www.mixxx.org/) through file-based IPC (Inter-Process Communication) and keyboard automation.
+> Part of the **[Heating DJ](../README.md)** project - An interactive thermal DJ system that translates heat into music.
 
-## Project Overview
+Advanced automated DJ system that controls [Mixxx DJ software](https://www.mixxx.org/) through **file-based IPC** and keyboard automation. This extends the basic [KeyboardPress](../KeyboardPress/) library with complex, position-based DJ routines and sophisticated transitions.
 
-This project creates a fully automated DJ that can load tracks, sync tempo, apply effects, control EQ, create loops, and transition between songs automatically. It's designed to work with Mixxx DJ software, using a combination of file-based communication and keyboard shortcuts to achieve hands-free DJ performances.
+## Role in Heating DJ
+
+While the thermal_dj applications use simple KeyboardPress functions for real-time responses, MixxAutoDj provides advanced capabilities for:
+
+- **Position-based automation**: Trigger actions at specific points in tracks
+- **Complex transitions**: Multi-step EQ manipulation and crossfading
+- **Sophisticated effects**: Loop-based scratching and effect chains
+- **Custom DJ routines**: Pre-programmed mixing patterns
+
+**Integration with Heating DJ:**
+```
+Thermal Sensor → Event Detection → KeyboardPress (simple) OR MixxAutoDj (advanced)
+```
 
 ## How It Works
 
 The system uses two communication methods:
 1. **File-based IPC**: Custom Mixxx controller script reads commands from text files
-2. **Keyboard Automation**: Direct hotkey simulation via pyautogui
+2. **Keyboard Automation**: Inherited from [KeyboardPress](../KeyboardPress/)
 
-This allows external Python scripts to control Mixxx as if a human DJ were operating it.
-
-## Related Projects
-
-This project integrates with:
-- **`/KeyboardPress/`** - Provides the keyboard automation functions used here
-- **`/PlotTemperature/`** - Uses this DJ automation to respond to sensor data
-- **`/buzzer/`** - Can work alongside sensor-driven music systems
+This allows Python scripts to control Mixxx with precise timing and complex sequences that go beyond simple keyboard shortcuts.
 
 ## Project Structure
 
 ```
 MixxAutoDj/
 ├── README.md
-├── Modify/
-│   ├── djmix_test.py         # Complex automated DJ routine
-│   └── mixa001_lock.py       # File-based Mixxx control demo
+├── djmix_test.py              # Complex automated DJ routine
+├── mixa001_lock.py            # File-based Mixxx control demo
+├── confirmixxx.txt            # IPC confirmation file
+└── mixxx_controller_src/      # C++ controller source files
+    ├── autodjprocessor.cpp/h
+    ├── library.cpp/h
+    ├── mixxx.cpp/h
+    └── playermanager.cpp/h
 ```
 
 ## Dependencies
@@ -436,12 +446,19 @@ def apply_beat_effects(bpm):
 
 ---
 
+---
+
+## Part of Heating DJ
+
+This advanced automation system complements the Heating DJ project's thermal-reactive capabilities. See the [main README](../README.md) for the complete system architecture.
+
+**Related Components:**
+- [KeyboardPress](../KeyboardPress/) - Simple keyboard automation (used for real-time thermal responses)
+- [thermal_dj](../thermal_dj/) - Main thermal DJ applications
+- [serial](../serial/) - Communication with thermal sensors
+
 ## Credits
 
 - Built for [Mixxx DJ Software](https://www.mixxx.org/)
-- Keyboard automation via PyAutoGUI
-- Inspired by autonomous DJ systems
-
-## License
-
-Open source - adapt for your automated DJ needs!
+- File-based IPC control system
+- Part of the Heating DJ project (GPL-3.0)

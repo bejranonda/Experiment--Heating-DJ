@@ -1,17 +1,27 @@
-# Serial - Arduino/Sensor Communication Utilities
+# serial - Arduino/Sensor Communication Utilities
 
-Simple Python utilities for reading and writing data over serial connections (USB/UART) with Arduino and sensor modules.
+> Part of the **[Heating DJ](../README.md)** project - An interactive thermal DJ system that translates heat into music.
 
-## Project Overview
+Simple Python utilities for reading and writing data over serial connections (USB/UART). These are the **foundation** that enables the Heating DJ system to receive thermal camera data and send feedback to LED displays.
 
-These basic serial communication scripts provide the foundation for connecting Python applications to Arduino microcontrollers and sensor systems. Essential utilities used across multiple projects in this repository.
+## Role in Heating DJ
 
-## Related Projects
+This is the **input/output layer** that connects hardware sensors to the thermal DJ system:
 
-**Used by**:
-- **`/buzzer/`** - All buzzer scripts read sensor data via serial
-- **`/PlotTemperature/`** - Thermal camera data via serial
-- **Any sensor project** - Foundation for hardware communication
+**Data Flow:**
+```
+MLX90640 Thermal Camera → serial/read_serial.py → thermal_dj applications
+thermal_dj applications → serial/write_serial.py → LED Matrix Display
+```
+
+**Used by:**
+- [`thermal_dj/main.py`](../thermal_dj/main.py) - Reads thermal data, writes LED feedback
+- [`thermal_dj/event_based_dj.py`](../thermal_dj/event_based_dj.py) - Reads thermal data + events
+- [`examples/`](../examples/) - All thermal visualization examples
+
+## What It Does
+
+These utilities handle the low-level serial communication so the thermal DJ applications can focus on music control and event detection.
 
 ## Dependencies
 
@@ -501,11 +511,19 @@ write_serial("Temperature: 25C")
 
 ---
 
+---
+
+## Part of Heating DJ
+
+This serial communication layer is essential to the Heating DJ project. See the [main README](../README.md) for the complete system architecture.
+
+**Related Components:**
+- [thermal_dj](../thermal_dj/) - Main thermal DJ applications that use these utilities
+- [examples](../examples/) - Thermal visualization examples
+- [KeyboardPress](../KeyboardPress/) - DJ control automation
+- [MixxAutoDj](../MixxAutoDj/) - Advanced DJ automation
+
 ## Credits
 
-- **PySerial** - Chris Liechti
-- Essential utility for hardware interfacing
-
-## License
-
-Open source - connect Python to your hardware!
+- **PySerial** by Chris Liechti
+- Part of the Heating DJ project (GPL-3.0)

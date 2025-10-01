@@ -1,17 +1,23 @@
 # KeyboardPress - DJ Control Automation Library
 
-Python library for automating DJ software control through keyboard shortcuts and hotkeys, specifically designed for Mixxx DJ software.
+> Part of the **[Heating DJ](../README.md)** project - An interactive thermal DJ system that translates heat into music.
 
-## Project Overview
+Python library for automating Mixxx DJ software control through keyboard shortcuts. This is the **control layer** that enables the Heating DJ system to trigger DJ effects, tempo changes, and track transitions in response to thermal events.
 
-This utility library provides pre-built functions for controlling DJ software via programmatic keyboard input. It enables automated DJ performances, sensor-driven mixing, and hands-free DJ control.
+## Role in Heating DJ
 
-## Related Projects
+This library provides the bridge between temperature sensor events and DJ actions:
 
-**Used by**:
-- **`/MixxAutoDj/`** - Main consumer of these functions
-- **`/PlotTemperature/plotCalculate.py`** - Temperature-triggered DJ control
-- **Any project** needing Mixxx automation
+1. **Thermal Event** detected → 2. **KeyboardPress function** called → 3. **Mixxx responds** with music change
+
+**Used by:**
+- [`thermal_dj/main.py`](../thermal_dj/main.py) - Temperature-triggered DJ automation
+- [`thermal_dj/event_based_dj.py`](../thermal_dj/event_based_dj.py) - Event-driven DJ system
+- [`MixxAutoDj/`](../MixxAutoDj/) - Advanced automated DJ routines
+
+## How It Works
+
+When the thermal camera detects movement or temperature changes, the Heating DJ system calls these functions to control the music in real-time.
 
 ## Dependencies
 
@@ -463,12 +469,19 @@ port.send(mido.Message('note_on', note=60))
 
 ---
 
+---
+
+## Part of Heating DJ
+
+This library is a core component of the Heating DJ project. See the [main README](../README.md) for the complete system architecture.
+
+**Related Components:**
+- [MixxAutoDj](../MixxAutoDj/) - Advanced DJ automation with file-based IPC
+- [serial](../serial/) - Communication with thermal sensors
+- [thermal_dj](../thermal_dj/) - Main thermal DJ applications
+
 ## Credits
 
 - Built for [Mixxx DJ Software](https://www.mixxx.org/)
 - PyAutoGUI for keyboard automation
-- PyKeyboard as alternative
-
-## License
-
-Open source - automate your DJ sets!
+- Part of the Heating DJ project (GPL-3.0)
