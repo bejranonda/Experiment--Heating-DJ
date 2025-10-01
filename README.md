@@ -1,5 +1,7 @@
 # Heating DJ - Interactive Thermal DJ System
 
+**Version 1.1**
+
 Real-time thermal camera visualization with intelligent DJ automation that responds to temperature changes and human presence.
 
 ## Project Overview
@@ -562,6 +564,37 @@ requests.post('http://your-server/api/log', json=data)
 - Calibrate temperature ranges for your environment
 - Test thresholds before live performance
 - Have manual override for DJ automation
+
+## Version History
+
+### Version 1.1 (Current)
+**Released: 2025-10-01**
+
+**Major Changes:**
+- 🎯 Reorganized project structure for better maintainability
+- Separated main applications (`thermal_dj/`) from learning examples (`examples/`)
+- Renamed files with descriptive names instead of version numbers
+- Positioned `event_based_dj.py` as the primary production application
+- Improved documentation and quick start guides
+
+**File Migrations:**
+- `plot-interpolate3.py` → `thermal_dj/event_based_dj.py` (PRIMARY)
+- `plotCalculate.py` → `thermal_dj/main.py`
+- `plotCalculatePlotOnly.py` → `thermal_dj/visualize_only.py`
+- `plot-serial-ubuntu*.py` → `examples/` folder
+- `plotCameraText.py` → `examples/text_overlay.py`
+- `plot-interpolate2.py` → `examples/interpolation_demo.py`
+
+### Version 1.0
+**Released: 2025-10-01**
+
+**Initial Release:**
+- Thermal DJ with event detection (plotCalculate.py)
+- Multiple visualization variants
+- Integrated KeyboardPress, MixxAutoDj, and serial utilities
+- Original flat file structure
+
+---
 
 ## Future Enhancements
 
