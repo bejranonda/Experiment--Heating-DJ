@@ -54,33 +54,129 @@ pip install RPi.GPIO
 ## Project Structure
 
 ```
-PlotTemperature/
-├── README.md
-├── plotCalculate.py                    # Main: Temperature + DJ automation
-├── plotCalculatePlotOnly.py            # Visualization only (no DJ)
-├── plotCameraText.py                   # With text display
-├── plot-serial-ubuntu.py               # Basic Ubuntu version
-├── plot-serial-ubuntu-interpolate.py   # With interpolation
-├── plot-serial-ubuntu-interpolate2.py  # Enhanced interpolation
-├── plot-interpolate2.py                # Standalone interpolation demo
-└── plot-interpolate3.py                # Advanced interpolation
+Heating DJ/
+├── thermal_dj/                         # Main application
+│   ├── event_based_dj.py              # 🎯 MAIN: Event-driven DJ automation
+│   ├── main.py                        # Full DJ system with LED display
+│   └── visualize_only.py              # Visualization only (no DJ)
+│
+├── examples/                           # Learning & testing examples
+│   ├── basic_plot.py                  # Simple thermal visualization
+│   ├── interpolated_plot.py           # With cubic interpolation
+│   ├── advanced_interpolation.py      # Enhanced interpolation demo
+│   ├── text_overlay.py                # With temperature text overlay
+│   └── interpolation_demo.py          # Standalone interpolation test
+│
+├── KeyboardPress/                      # DJ control library
+├── MixxAutoDj/                        # Automated DJ system
+├── serial/                            # Serial communication utilities
+└── README.md
 ```
 
-## Script Documentation
+## Quick Start
 
-### 1. `plotCalculate.py` - Full Interactive DJ System ⭐
+### Main Application (Event-Based DJ):
+```bash
+python thermal_dj/event_based_dj.py
+```
+**Best for**: Reading pre-processed event data from Arduino/sensor that includes event status in serial[64]
 
-**Purpose**: Complete temperature-triggered DJ automation with visualization
+### Full System (with Event Detection):
+```bash
+python thermal_dj/main.py
+```
+**Best for**: Complete system with Python-based event detection, LED display, and DJ automation
+
+### Visualization Only:
+```bash
+python thermal_dj/visualize_only.py
+```
+**Best for**: Testing thermal camera without DJ software
+
+## Application Documentation
+
+### 1. `thermal_dj/event_based_dj.py` - Event-Based DJ System 🎯
+
+**Purpose**: Main production system - reads event status from sensor and triggers DJ automation
+
+**Key Features**:
+- Reads temperature + event status from serial (65 values total)
+- Event status in `serial[64]` (preprocessed by Arduino/sensor)
+- Lightweight - no complex event detection in Python
+- Direct DJ response based on sensor events
+- Real-time thermal visualization with interpolation
+
+**Usage**:
+```bash
+python thermal_dj/event_based_dj.py
+```
+
+**Event Types Read from Serial[64]**:
+```python
+0  = No event
+1-4  = Basic temperature events
+5-8  = Extreme temperature events
+9    = High deviation (erratic changes)
+10   = Movement detected
+```
+
+---
+
+### 2. `thermal_dj/main.py` - Full Interactive DJ System
+
+**Purpose**: Complete temperature-triggered DJ automation with Python-based event detection
 
 **Features**:
 - Real-time 8x8 thermal camera capture
 - Cubic interpolation to 40x40 display
-- Statistical event detection (9 event types)
+- **Python-based statistical event detection** (10 event types)
 - Automated DJ responses to temperature events
 - LED matrix text feedback
 - Serial communication to display
 
-**Event Detection System**:
+**Usage**:
+```bash
+python thermal_dj/main.py
+```
+
+---
+
+### 3. `thermal_dj/visualize_only.py` - Visualization Only
+
+**Purpose**: Temperature visualization without DJ automation
+
+**Use cases**:
+- Testing thermal camera
+- Pure data visualization
+- Systems without Mixxx DJ software
+
+**Usage**:
+```bash
+python thermal_dj/visualize_only.py
+```
+
+---
+
+## Example Scripts
+
+### `examples/basic_plot.py`
+Simple thermal visualization - good starting point
+
+### `examples/interpolated_plot.py`
+Enhanced with cubic interpolation for smoother visuals
+
+### `examples/advanced_interpolation.py`
+Advanced interpolation techniques demo
+
+### `examples/text_overlay.py`
+Display temperature values with text annotations
+
+### `examples/interpolation_demo.py`
+Standalone interpolation algorithm test
+
+---
+
+## Event Detection System
 
 ```python
 # Event Types (loop_status values)
@@ -196,88 +292,6 @@ python plotCalculate.py
 │  LED Display    │ Text feedback
 └─────────────────┘
 ```
-
----
-
-### 2. `plotCalculatePlotOnly.py` - Visualization Only
-
-**Purpose**: Temperature visualization without DJ automation
-
-**Use cases**:
-- Testing thermal camera
-- Pure data visualization
-- Systems without Mixxx
-
-**Differences**:
-- No pyautogui import
-- No DJ functions
-- Lightweight for embedded systems
-
----
-
-### 3. `plot-serial-ubuntu.py` - Basic Ubuntu Version
-
-**Purpose**: Simple temperature plotting for Ubuntu
-
-**Features**:
-- Basic matplotlib plotting
-- No GPIO requirements
-- Good starting point
-
-**Usage**:
-```bash
-python plot-serial-ubuntu.py
-```
-
----
-
-### 4. `plot-serial-ubuntu-interpolate.py` - Interpolated Display
-
-**Purpose**: Enhanced Ubuntu version with smooth interpolation
-
-**Features**:
-- Scipy cubic interpolation
-- 8x8 → 40x40 upscaling
-- Smoother heat maps
-- Better visualization of gradients
-
-**Interpolation Method**:
-```python
-from scipy import interpolate
-
-# Original 8x8 grid
-xx, yy = np.linspace(0, 8, 8), np.linspace(0, 8, 8)
-
-# Interpolate to 40x40
-grid_x = np.linspace(0, 8, 40)
-grid_y = np.linspace(0, 8, 40)
-
-# Cubic interpolation
-f = interpolate.interp2d(xx, yy, frame, kind='cubic')
-smooth_frame = f(grid_x, grid_y)
-```
-
----
-
-### 5. `plot-interpolate2.py` & `plot-interpolate3.py` - Enhanced Interpolation
-
-**Purpose**: Advanced interpolation techniques
-
-**Additional features**:
-- Alternative interpolation methods
-- Performance optimizations
-- Different visualization approaches
-
----
-
-### 6. `plotCameraText.py` - With Text Overlay
-
-**Purpose**: Display temperature values with text annotations
-
-**Features**:
-- Numeric overlay on heat map
-- Average temperature display
-- Per-pixel temperature values
 
 ---
 
