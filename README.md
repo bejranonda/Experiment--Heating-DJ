@@ -2,11 +2,46 @@
 
 **Version 1.1**
 
-Real-time thermal camera visualization with intelligent DJ automation that responds to temperature changes and human presence.
+**Heating DJ** is an interactive thermal DJ system that translates body heat into music. Using an MLX90640 8x8 IR thermal camera, it detects temperature changes, human presence, and movement—then
+  automatically controls Mixxx DJ software with scratches, tempo shifts, and track changes. Like a theremin for heat, it transforms invisible thermal patterns into live audio performance.
+
+<img width="604" height="464" alt="image" src="https://github.com/user-attachments/assets/580783a2-2b78-4942-929b-4bb12250afe0" />
+
+*🔥 What if your body heat could DJ the party? Interactive thermal sensing system that reads temperature changes and movement—then automatically controls music, scratches, tempo. IR camera becomes
+  instrument.*
 
 ## Project Overview
+- Project Name: Heating DJ
+- Medium: Interactive Thermal-Responsive Installation / Generative Music Performance System
+- Development Period: January - February 2023
+– Technologies: MLX90640 IR Thermal Camera, Raspberry Pi, Python, Mixxx DJ Software, LED Matrix DisplayFormat: Live Installation / Performance Instrument
+ 
+## Artistic Concept
+Heating DJ transforms invisible thermal energy into tangible sonic experience. The installation uses an 8x8 infrared thermal camera to "see" heat signatures—body warmth, breath, proximity, movement—and translates these invisible fluctuations into real-time DJ automation.
 
-This project combines thermal imaging with automated DJ control to create an interactive art installation or performance system. Temperature sensors detect environmental changes, human presence, and movement, triggering corresponding DJ effects, track changes, and visual feedback. The system "sees" heat and translates it into music and visuals.
+What emerges is a performance where the audience becomes the instrument: their collective presence, movement, and thermal footprint directly manipulate tempo, scratching, track selection, and effects.
+
+The work questions the boundaries between performer and audience, exploring how environmental data can become a medium for generative music. Unlike traditional interactive installations that rely on buttons, screens, or cameras, Heating DJ operates through the most fundamental human presence—heat. You cannot opt out of participation; simply being present means you are performing.
+
+## Conceptual Framework
+- Invisible Made Audible: Heat is invisible to the naked eye, yet it surrounds us constantly. Heating DJ makes thermal patterns—human presence, movement, breath—perceptible through sound. The thermal camera becomes a synesthetic translator, converting infrared radiation into musical gesture.
+
+- Body as Score: In traditional DJ performance, the DJ reads the crowd's energy and responds. Heating DJ inverts this: the crowd's thermal energy is the score. Dancers don't just inspire the DJ—they are the DJ. Movement generates heat; heat generates change; change generates music.
+
+- Environmental Feedback Loop:The system creates a feedback loop: people move → temperature rises → music intensifies → people move more. The installation becomes a self-regulating thermal-sonic ecosystem where participants and algorithm co-perform.
+
+
+<img width="287" height="297" alt="image" src="https://github.com/user-attachments/assets/330ba2e2-c0ad-4b50-ae63-0aee08989a07" />
+
+*Interpolatiion of thermal image processed for audio control*
+
+## Technical Artistic Decisions
+- Event Detection as Composition: Ten distinct thermal events (cooling, heating, rapid changes, movement) map to specific musical gestures. This creates a thermal vocabulary—a language where temperature becomes syntax and music becomes meaning.
+
+- Interpolation as Aesthetics: The 8x8 sensor data is interpolated to 40x40 using cubic splines, creating smooth, organic heat maps. This mirrors the artistic intent: technological precision transformed into fluid, human-scale experience.
+
+- Real-Time Response: Zero latency between thermal event and sonic response. The work exists in the immediate present—no recording, no delay, no replay. Every performance is unrepeatable.
+
 
 ## How It Works
 
@@ -31,6 +66,11 @@ This project combines thermal imaging with automated DJ control to create an int
 - **MLX90640 Thermal Camera** (8x8 IR array)
 - **USB-Serial adapter** for sensor communication
 - **LED Matrix display** (optional, for text feedback)
+
+<img width="227" height="73" alt="image" src="https://github.com/user-attachments/assets/05fce5d3-4e86-44d6-876c-fde51da68ca6" />
+
+*Secondary communication with human over LED display*
+
 
 ### Optional:
 - **Arduino** for sensor preprocessing
@@ -141,6 +181,11 @@ The Heating DJ project is built with a modular architecture:
     │ Display       │     Temperature display
     └───────────────┘
 ```
+
+<img width="528" height="452" alt="mlx90640_test_fliplr" src="https://github.com/user-attachments/assets/ff921af8-88f0-4a35-bdb6-a5afa862c200" />
+
+*Visualization of thermal capture*
+
 
 ### Component Roles:
 
